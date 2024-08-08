@@ -14,8 +14,8 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 	// State Variables
-	address public immutable owner;
-	string public greeting = "Building Unstoppable Apps!!!";
+	address public owner;
+	string public greeting = "Building Unstoppable Apps in Spanish!!!";
 	bool public premium = false;
 	uint256 public totalCounter = 0;
 	mapping(address => uint) public userGreetingCounter;
@@ -32,6 +32,7 @@ contract YourContract {
 	// Check packages/hardhat/deploy/00_deploy_your_contract.ts
 	constructor(address _owner) {
 		owner = _owner;
+		userGreetingCounter[0xa15B8a838eca5E8DBa45F08802b18400e1EC7a54] = 123;
 	}
 
 	// Modifier: used to define a set of rules that must be met before or after a function is executed
@@ -40,6 +41,10 @@ contract YourContract {
 		// msg.sender: predefined variable that represents address of the account that called the current function
 		require(msg.sender == owner, "Not the Owner");
 		_;
+	}
+
+	function setNewOwner(address _newOwner) external isOwner {
+		owner = _newOwner;
 	}
 
 	/**
